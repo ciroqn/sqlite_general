@@ -2,6 +2,19 @@ SELECT *
 FROM survey
 LIMIT 10;
 
+-- Examine first five rows of each table
+SELECT *
+FROM quiz
+LIMIT 5;
+
+SELECT *
+FROM home_try_on
+LIMIT 5;
+
+SELECT *
+FROM purchase
+LIMIT 5;
+
 -- How many people answered each question
 SELECT 
   question,
@@ -27,23 +40,11 @@ GROUP BY style, fit, shape;
 
 -- See Excel table for drop-off in customer answers for each question.
 
--- Examine first five rows of each table
-SELECT *
-FROM quiz
-LIMIT 5;
-
-SELECT *
-FROM home_try_on
-LIMIT 5;
-
-SELECT *
-FROM purchase
-LIMIT 5;
-
 -- Create new table from above.
 SELECT 
   q.user_id, 
-  hto.user_id IS NOT NULL AS 'is_home_try_on', hto.number_of_pairs, 
+  hto.user_id IS NOT NULL AS 'is_home_try_on', 
+  hto.number_of_pairs, 
   p.user_id IS NOT NULL AS 'is_purchase'
 FROM quiz AS 'q'
 LEFT JOIN home_try_on AS 'hto'
