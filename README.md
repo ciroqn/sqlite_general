@@ -1,1 +1,3 @@
-# sqlite_general
+# General SQLite
+
+Mainly SQLite files for data analysis.
