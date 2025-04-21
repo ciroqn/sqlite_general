@@ -1,6 +1,6 @@
- SELECT * 
- FROM survey
- LIMIT 10;
+SELECT * 
+FROM survey
+LIMIT 10;
 
 -- How many people answered each question
 SELECT 
