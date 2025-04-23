@@ -1,4 +1,5 @@
--- Calculating churn rates for subscribers over a number of months. Temporary tables are set up in order to do this.
+-- Calculating churn rates for subscribers over a number of months. Temporary tables are set up in order to do this. The subscribers are 
+-- from one of two segments (subscriber models): 30 or 87. Hence, the aggregate functions are performed on these separately.
 
 -- inspect table (commented out)
 -- SELECT *
@@ -48,14 +49,20 @@ status as (
     WHEN (segment = 87) AND (subscription_end BETWEEN first_day AND last_day)
     THEN 1
     ELSE 0
-  END AS is_canceled_87,
+  END AS is_cancelled_87,
   CASE 
     WHEN (segment = 30) AND (subscription_end BETWEEN first_day AND last_day)
     THEN 1
     ELSE 0
-  END AS is_canceled_30
+  END AS is_cancelled_30
   FROM cross_join
+),
+status_aggregate as (
+  SELECT
+    SUM(is_active_87) as sum_active_87,
+    SUM(is_active_30) as sum_active_30,
+    SUM(is_cancelled_87) as sum_cancelled_87,
+    SUM(is_cancelled_30) as sum_cancelled_30
+  FROM status
 )
-SELECT *
-FROM status
-LIMIT 50;
+
