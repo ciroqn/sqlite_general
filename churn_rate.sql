@@ -31,6 +31,8 @@ cross_join as (
   FROM subscriptions
   CROSS JOIN months
 ),
+-- after joining tables, produce the status (i.e. active or cancelled subscription) of each subscriber in their respective subscriber model
+-- (or sgement)
 status as (
   SELECT
   id,
@@ -57,6 +59,7 @@ status as (
   END AS is_cancelled_30
   FROM cross_join
 ),
+-- aggregate over the active and cancelled subs so that the churn rate can be calculated.
 status_aggregate as (
   SELECT
     SUM(is_active_87) as sum_active_87,
