@@ -67,5 +67,11 @@ status_aggregate as (
     SUM(is_cancelled_87) as sum_cancelled_87,
     SUM(is_cancelled_30) as sum_cancelled_30
   FROM status
+  GROUP BY month
 )
+SELECT
+  month,
+  1.0 * sum_cancelled_87 / sum_active_87 as churn_rate_87,
+  1.0 * sum_cancelled_30 / sum_active_30 as churn_rate_30
+FROM status_aggregate;
 
