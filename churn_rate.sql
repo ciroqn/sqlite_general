@@ -13,10 +13,6 @@ LIMIT 100;
 -- creating temporary table of months
 WITH months as (
   SELECT
-    '2016-12-01' as first_day,
-    '2016-12-31' as last_day
-  UNION
-  SELECT
     '2017-01-01' as first_day,
     '2016-07-31' as last_day
   UNION
